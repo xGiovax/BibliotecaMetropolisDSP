@@ -7,83 +7,130 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success mb-3">Crear nuevo recurso</a>
 </p>
-<table class="table">
-    <thead>
+
+@using (Html.BeginForm("Index", "Recurso", FormMethod.Get))
+{
+        <div class="card mb-4 shadow-sm p-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Buscar por Título o Autor</label>
+                    <input type="text" name="searchTitulo" class="form-control"
+                           value="@Context.Request.Query["searchTitulo"]"
+                           placeholder="Ejemplo: García Márquez o Cien años..." />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">Tipo de Recurso</label>
+                @Html.DropDownList("idTipoR", (SelectList)ViewData["IdTipoR"], "Todos", new { @class = "form-select" })
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">País</label>
+                @Html.DropDownList("idPais", (SelectList)ViewData["IdPais"], "Todos", new { @class = "form-select" })
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">Editorial</label>
+                @Html.DropDownList("idEdit", (SelectList)ViewData["IdEdit"], "Todas", new { @class = "form-select" })
+                </div>
+
+                <div class="col-md-2 d-flex align-items-center">
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" name="ultimos10" value="true"
+                    @(ViewData["Ultimos10"] != null && (bool)ViewData["Ultimos10"] ? "checked" : "") />
+                        <label class="form-check-label">Últimos 10 años</label>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100 mt-3">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+}
+
+<table class="table table-bordered table-striped align-middle shadow-sm">
+    <thead class="table-light">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnnoPublic)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Edicion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PalabrasBusqueda)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadUnidades)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioIndividual)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pais)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoRecurso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Editorial)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+            <th>@Html.DisplayNameFor(model => model.AnnoPublic)</th>
+            <th>@Html.DisplayNameFor(model => model.Edicion)</th>
+            <th>@Html.DisplayNameFor(model => model.PalabrasBusqueda)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.CantidadUnidades)</th>
+            <th>@Html.DisplayNameFor(model => model.PrecioIndividual)</th>
+            <th>@Html.DisplayNameFor(model => model.Pais)</th>
+            <th>@Html.DisplayNameFor(model => model.TipoRecurso)</th>
+            <th>@Html.DisplayNameFor(model => model.Editorial)</th>
+            <th>Autores</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnoPublic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edicion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PalabrasBusqueda)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CantidadUnidades)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioIndividual)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pais.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoRecurso.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Editorial.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRec">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRec">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRec">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AnnoPublic)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Edicion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PalabrasBusqueda)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CantidadUnidades)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PrecioIndividual)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Pais.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TipoRecurso.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Editorial.Nombre)</td>
+
+                    <td>
+                    @if (item.AutoresRecursos != null && item.AutoresRecursos.Any())
+                    {
+                        foreach (var ar in item.AutoresRecursos)
+                        {
+                            if (ar.Autor != null)
+                            {
+                                if (ar.EsPrincipal)
+                                {
+                                                        <span class="text-primary fw-bold">
+                                        @($"{ar.Autor.Nombres} {ar.Autor.Apellidos}") <small>(Principal)</small>
+                                                        </span>
+
+                                    <br />
+                                }
+                                else
+                                {
+                                                        <span>@($"{ar.Autor.Nombres} {ar.Autor.Apellidos}")</span>
+
+                                    <br />
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                                <span class="text-muted">Sin autores</span>
+                    }
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdRec" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.IdRec" class="btn btn-sm btn-outline-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdRec" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+        }
     </tbody>
 </table>
+
+<style>
+    td span {
+        display: inline-block;
+        margin-bottom: 3px;
+    }
+    td span small {
+        color: #0d6efd;
+    }
+</style>

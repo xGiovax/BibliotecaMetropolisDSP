@@ -2,7 +2,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-5 fw-bold text-primary">Bienvenido a la Biblioteca Metropolis</h1>
+    <p class="lead text-muted mt-3">
+        Sistema de gestión de materiales bibliográficos desarrollado con ASP.NET Core MVC y Entity Framework.
+    </p>
+    <div class="mt-4">
+        <a class="btn btn-outline-primary btn-lg mx-2" asp-controller="Recurso" asp-action="Index">Ver Recursos</a>
+        <a class="btn btn-outline-secondary btn-lg mx-2" asp-controller="Autor" asp-action="Index">Ver Autores</a>
+    </div>
 </div>

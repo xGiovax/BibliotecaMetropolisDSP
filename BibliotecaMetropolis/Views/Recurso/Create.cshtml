@@ -59,6 +59,35 @@
                 <label asp-for="IdEdit" class="control-label"></label>
                 <select asp-for="IdEdit" class ="form-control" asp-items="ViewBag.IdEdit"></select>
             </div>
+
+            <div class="form-group mt-3">
+    <label class="fw-bold">Autores</label>
+                @Html.ListBox(
+                            "autoresSeleccionados",
+                            (MultiSelectList)ViewData["Autores"],
+                            new { @class = "form-select", multiple = "multiple", size = "5" }
+                        )
+    <small class="text-muted d-block">Mantén presionado Ctrl (o Cmd) para seleccionar varios autores.</small>
+</div>
+
+<div class="form-group mt-3">
+    <label class="fw-bold">Autor Principal</label>
+                @{
+                    var autoresList = ((MultiSelectList)ViewData["Autores"]).Select(a => new SelectListItem
+            {
+                Value = a.Value,
+                Text = a.Text
+            });
+                }
+                @Html.DropDownList(
+                            "autorPrincipal",
+                            new SelectList(autoresList, "Value", "Text"),
+                            "Seleccione un autor principal",
+                            new { @class = "form-select" }
+                        )
+</div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

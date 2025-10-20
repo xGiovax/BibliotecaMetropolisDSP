@@ -10,33 +10,36 @@
 </head>
 <body>
     <!-- Views/Shared/_Layout.cshtml -->
-<header>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom mb-3">
-    <div class="container">
-      <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BibliotecaMetropolis</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" asp-controller="Recursos" asp-action="Buscar">Búsqueda</a></li>
-          <li class="nav-item"><a class="nav-link" asp-controller="Recursos" asp-action="PorTipo">Por Tipo</a></li>
-          <li class="nav-item"><a class="nav-link" asp-controller="Materiales" asp-action="Index">Materiales</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-light" asp-controller="Home" asp-action="Index">
+                    📚 Biblioteca Metropolis
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Recurso" asp-action="Index">Recursos</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Autor" asp-action="Index">Autores</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Editorial" asp-action="Index">Editoriales</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="TipoRecurso" asp-action="Index">Tipos</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Pais" asp-action="Index">Países</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-    
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main class="container mt-4">
+        @RenderBody()
+    </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - BibliotecaMetropolis - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer class="text-center mt-5 py-3 bg-light border-top">
+        <p class="mb-0 text-muted">
+            © 2025 Biblioteca Metropolis — Desarrollado por <strong>Giovanni Alberto Ruano Martínez (RM250065)</strong>
+        </p>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
