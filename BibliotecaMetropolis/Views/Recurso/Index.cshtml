@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BibliotecaMetropolis.Models.Recurso>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnnoPublic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edicion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PalabrasBusqueda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadUnidades)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioIndividual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoRecurso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editorial)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnoPublic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edicion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PalabrasBusqueda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadUnidades)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioIndividual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pais.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoRecurso.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editorial.Nombre)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdRec">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdRec">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdRec">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

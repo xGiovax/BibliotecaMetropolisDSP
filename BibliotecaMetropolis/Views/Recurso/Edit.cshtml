@@ -1,0 +1,79 @@
+﻿@model BibliotecaMetropolis.Models.Recurso
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Recurso</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdRec" />
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnnoPublic" class="control-label"></label>
+                <input asp-for="AnnoPublic" class="form-control" />
+                <span asp-validation-for="AnnoPublic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Edicion" class="control-label"></label>
+                <input asp-for="Edicion" class="form-control" />
+                <span asp-validation-for="Edicion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PalabrasBusqueda" class="control-label"></label>
+                <input asp-for="PalabrasBusqueda" class="form-control" />
+                <span asp-validation-for="PalabrasBusqueda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadUnidades" class="control-label"></label>
+                <input asp-for="CantidadUnidades" class="form-control" />
+                <span asp-validation-for="CantidadUnidades" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioIndividual" class="control-label"></label>
+                <input asp-for="PrecioIndividual" class="form-control" />
+                <span asp-validation-for="PrecioIndividual" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPais" class="control-label"></label>
+                <select asp-for="IdPais" class="form-control" asp-items="ViewBag.IdPais"></select>
+                <span asp-validation-for="IdPais" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdTipoR" class="control-label"></label>
+                <select asp-for="IdTipoR" class="form-control" asp-items="ViewBag.IdTipoR"></select>
+                <span asp-validation-for="IdTipoR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdEdit" class="control-label"></label>
+                <select asp-for="IdEdit" class="form-control" asp-items="ViewBag.IdEdit"></select>
+                <span asp-validation-for="IdEdit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
