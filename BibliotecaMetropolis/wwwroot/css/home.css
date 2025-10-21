@@ -1,0 +1,67 @@
+﻿/* ---------------------------------------------
+   Biblioteca Metrópolis - Estilos principales
+   --------------------------------------------- */
+
+/* Hero principal */
+.hero-section {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') no-repeat center center/cover;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+/* Capa de color sobre el fondo */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 36, 99, 0.7);
+}
+
+/* Animación de entrada */
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tarjetas principales */
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.card-zoom {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card-zoom:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+/* Footer */
+.social-icons a:hover {
+    color: #0d6efd;
+}
+
+/* Fuente global */
+body {
+    font-family: 'Poppins', sans-serif;
+}

@@ -109,36 +109,60 @@ namespace BibliotecaMetropolis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-    [Bind("IdRec,Titulo,AnnoPublic,Edicion,PalabrasBusqueda,Descripcion,CantidadUnidades,PrecioIndividual,IdPais,IdTipoR,IdEdit")]
+     [Bind("IdRec,Titulo,AnnoPublic,Edicion,PalabrasBusqueda,Descripcion,CantidadUnidades,PrecioIndividual,IdPais,IdTipoR,IdEdit")]
     Recurso recurso,
-    int[] autoresSeleccionados,
-    int? autorPrincipal)
+     int[] autoresSeleccionados,
+     int? autorPrincipal)
         {
+            // ✅ Validación: debe haber al menos un autor seleccionado
+            if (autoresSeleccionados == null || autoresSeleccionados.Length == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Debe seleccionar al menos un autor para el recurso.");
+            }
+
+            // ✅ Validación: debe haber un autor principal
+            if (!autorPrincipal.HasValue)
+            {
+                ModelState.AddModelError(string.Empty, "Debe designar un autor principal para el recurso.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(recurso);
                 await _context.SaveChangesAsync();
 
-                // 🔹 Relacionar autores seleccionados
-                if (autoresSeleccionados != null && autoresSeleccionados.Any())
+                // Relacionar autores
+                foreach (var idAutor in autoresSeleccionados)
                 {
-                    foreach (var idAutor in autoresSeleccionados)
+                    var rel = new AutoresRecursos
                     {
-                        var rel = new AutoresRecursos
-                        {
-                            IdAutor = idAutor,
-                            IdRec = recurso.IdRec,
-                            EsPrincipal = (autorPrincipal.HasValue && autorPrincipal.Value == idAutor)
-                        };
-                        _context.AutoresRecursos.Add(rel);
-                    }
-                    await _context.SaveChangesAsync();
+                        IdAutor = idAutor,
+                        IdRec = recurso.IdRec,
+                        EsPrincipal = autorPrincipal.HasValue && autorPrincipal.Value == idAutor
+                    };
+                    _context.AutoresRecursos.Add(rel);
                 }
 
+                // Si el tipo de recurso seleccionado es Tesis, agregar datos de contacto a la editorial
+                var tipo = await _context.TiposRecurso.FindAsync(recurso.IdTipoR);
+                if (tipo != null && tipo.Nombre.ToLower().Contains("tesis"))
+                {
+                    var editorial = await _context.Editoriales.FindAsync(recurso.IdEdit);
+                    if (editorial != null)
+                    {
+                        editorial.CorreoContacto = Request.Form["CorreoContacto"];
+                        editorial.Telefono = Request.Form["Telefono"];
+                        editorial.SitioWeb = Request.Form["SitioWeb"];
+                        _context.Update(editorial);
+                    }
+                }
+
+
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            // 🔹 Si falla el guardado, recargamos listas y devolvemos la vista
+            // Si algo falla, recargar listas desplegables
             ViewData["IdEdit"] = new SelectList(_context.Editoriales, "IdEdit", "Nombre", recurso.IdEdit);
             ViewData["IdPais"] = new SelectList(_context.Paises, "IdPais", "Nombre", recurso.IdPais);
             ViewData["IdTipoR"] = new SelectList(_context.TiposRecurso, "IdTipoR", "Nombre", recurso.IdTipoR);
@@ -146,6 +170,7 @@ namespace BibliotecaMetropolis.Controllers
 
             return View(recurso);
         }
+
 
 
         // GET: Recurso/Edit/5
@@ -164,6 +189,43 @@ namespace BibliotecaMetropolis.Controllers
             ViewData["IdEdit"] = new SelectList(_context.Editoriales, "IdEdit", "Nombre", recurso.IdEdit);
             ViewData["IdPais"] = new SelectList(_context.Paises, "IdPais", "Nombre", recurso.IdPais);
             ViewData["IdTipoR"] = new SelectList(_context.TiposRecurso, "IdTipoR", "Nombre", recurso.IdTipoR);
+
+
+            // Si el recurso pertenece a una tesis, cargar datos de contacto de la editorial
+            var tipo = await _context.TiposRecurso.FindAsync(recurso.IdTipoR);
+            if (tipo != null && tipo.Nombre.ToLower().Contains("tesis"))
+            {
+                var editorial = await _context.Editoriales.FindAsync(recurso.IdEdit);
+                if (editorial != null)
+                {
+                    ViewBag.CorreoContacto = editorial.CorreoContacto;
+                    ViewBag.Telefono = editorial.Telefono;
+                    ViewBag.SitioWeb = editorial.SitioWeb;
+                }
+            }
+
+            // Cargar lista de autores
+            ViewBag.Autores = _context.Autores
+                .Select(a => new
+                {
+                    a.IdAutor,
+                    NombreCompleto = a.Nombres + " " + a.Apellidos
+                })
+                .ToList();
+
+            // Cargar los autores que ya están asociados a este recurso
+            ViewBag.AutoresSeleccionados = _context.AutoresRecursos
+                .Where(ar => ar.IdRec == recurso.IdRec)
+                .Select(ar => ar.IdAutor)
+                .ToList();
+
+            // Determinar cuál es el autor principal
+            ViewBag.AutorPrincipal = _context.AutoresRecursos
+                .Where(ar => ar.IdRec == recurso.IdRec && ar.EsPrincipal)
+                .Select(ar => ar.IdAutor)
+                .FirstOrDefault();
+
+
             return View(recurso);
         }
 
@@ -172,11 +234,27 @@ namespace BibliotecaMetropolis.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRec,Titulo,AnnoPublic,Edicion,PalabrasBusqueda,Descripcion,CantidadUnidades,PrecioIndividual,IdPais,IdTipoR,IdEdit")] Recurso recurso)
+        public async Task<IActionResult> Edit(
+    int id,
+    [Bind("IdRec,Titulo,AnnoPublic,Edicion,PalabrasBusqueda,Descripcion,CantidadUnidades,PrecioIndividual,IdPais,IdTipoR,IdEdit")]
+    Recurso recurso,
+    int[] autoresSeleccionados,
+    int? autorPrincipal)
         {
             if (id != recurso.IdRec)
             {
                 return NotFound();
+            }
+
+            // ✅ Validaciones de integridad
+            if (autoresSeleccionados == null || autoresSeleccionados.Length == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Debe seleccionar al menos un autor para el recurso.");
+            }
+
+            if (!autorPrincipal.HasValue)
+            {
+                ModelState.AddModelError(string.Empty, "Debe designar un autor principal para el recurso.");
             }
 
             if (ModelState.IsValid)
@@ -185,10 +263,44 @@ namespace BibliotecaMetropolis.Controllers
                 {
                     _context.Update(recurso);
                     await _context.SaveChangesAsync();
+
+                    // 🔹 Eliminar relaciones anteriores
+                    var autoresPrevios = _context.AutoresRecursos.Where(a => a.IdRec == recurso.IdRec);
+                    _context.AutoresRecursos.RemoveRange(autoresPrevios);
+                    await _context.SaveChangesAsync();
+
+                    // 🔹 Agregar nuevas relaciones
+                    foreach (var idAutor in autoresSeleccionados)
+                    {
+                        var rel = new AutoresRecursos
+                        {
+                            IdAutor = idAutor,
+                            IdRec = recurso.IdRec,
+                            EsPrincipal = (autorPrincipal.HasValue && autorPrincipal.Value == idAutor)
+                        };
+                        _context.AutoresRecursos.Add(rel);
+                    }
+
+                    // Si el tipo de recurso es tesis, actualizar los datos de institución
+                    var tipo = await _context.TiposRecurso.FindAsync(recurso.IdTipoR);
+                    if (tipo != null && tipo.Nombre.ToLower().Contains("tesis"))
+                    {
+                        var editorial = await _context.Editoriales.FindAsync(recurso.IdEdit);
+                        if (editorial != null)
+                        {
+                            editorial.CorreoContacto = Request.Form["CorreoContacto"];
+                            editorial.Telefono = Request.Form["Telefono"];
+                            editorial.SitioWeb = Request.Form["SitioWeb"];
+                            _context.Update(editorial);
+                        }
+                    }
+
+
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecursoExists(recurso.IdRec))
+                    if (!_context.Recursos.Any(e => e.IdRec == recurso.IdRec))
                     {
                         return NotFound();
                     }
@@ -199,11 +311,16 @@ namespace BibliotecaMetropolis.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // 🔁 Si hay error, recargamos combos
             ViewData["IdEdit"] = new SelectList(_context.Editoriales, "IdEdit", "Nombre", recurso.IdEdit);
             ViewData["IdPais"] = new SelectList(_context.Paises, "IdPais", "Nombre", recurso.IdPais);
             ViewData["IdTipoR"] = new SelectList(_context.TiposRecurso, "IdTipoR", "Nombre", recurso.IdTipoR);
+            ViewData["Autores"] = new MultiSelectList(_context.Autores, "IdAutor", "Nombres");
+
             return View(recurso);
         }
+
 
         // GET: Recurso/Delete/5
         public async Task<IActionResult> Delete(int? id)

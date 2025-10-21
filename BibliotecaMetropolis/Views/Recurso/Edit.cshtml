@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="IdRec" />
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
@@ -58,11 +58,79 @@
                 <select asp-for="IdTipoR" class="form-control" asp-items="ViewBag.IdTipoR"></select>
                 <span asp-validation-for="IdTipoR" class="text-danger"></span>
             </div>
+                    <!-- Campos extra visibles solo si el tipo es "Tesis" -->
+            <div id="tesisFields" style="display:none;">
+            <hr />
+            <h5 class="fw-bold">Datos de la Institución (solo para Tesis)</h5>
+
+            <div class="mb-3">
+             <label class="form-label">Correo de contacto</label>
+            <input type="email" name="CorreoContacto" class="form-control"
+               value="@ViewBag.CorreoContacto" placeholder="ejemplo@universidad.edu" />
+            </div>
+
+            <div class="mb-3">
+             <label class="form-label">Teléfono</label>
+            <input type="text" name="Telefono" class="form-control"
+               value="@ViewBag.Telefono" placeholder="2222-2222" />
+            </div>
+
+              <div class="mb-3">
+            <label class="form-label">Sitio Web</label>
+           <input type="url" name="SitioWeb" class="form-control"
+               value="@ViewBag.SitioWeb" placeholder="https://www.universidad.edu" />
+             </div>
+            </div>
+
+            <script>
+            // Mostrar u ocultar los campos de tesis
+            const tipoSelect = document.getElementById("IdTipoR");
+            const tesisFields = document.getElementById("tesisFields");
+
+            tipoSelect.addEventListener("change", function () {
+             const selectedText = tipoSelect.options[tipoSelect.selectedIndex].text.toLowerCase();
+            tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
+            });
+
+            // Mostrar automáticamente si el recurso ya es de tipo Tesis
+            window.addEventListener("load", function () {
+            const selectedText = tipoSelect.options[tipoSelect.selectedIndex]?.text.toLowerCase() || "";
+            tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
+            });
+            </script>
+
+            <hr />
+            <h5 class="fw-bold">Autores del recurso</h5>
+            <p class="text-muted">Selecciona uno o varios autores. Debes designar un autor principal.</p>
+
+            <div class="mb-3">
+            <label class="form-label">Autores</label>
+                @Html.ListBox(
+                            "autoresSeleccionados",
+                            new MultiSelectList(ViewBag.Autores, "IdAutor", "NombreCompleto", ViewBag.AutoresSeleccionados),
+                            new { @class = "form-select", size = "6" }
+                        )
+            </div>
+
+            <div class="mb-3">
+            <label class="form-label">Autor principal</label>
+                @Html.DropDownList(
+                            "autorPrincipal",
+                            new SelectList(ViewBag.Autores, "IdAutor", "NombreCompleto", ViewBag.AutorPrincipal),
+                            "Seleccione un autor principal",
+                            new { @class = "form-select" }
+                        )
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+
             <div class="form-group">
                 <label asp-for="IdEdit" class="control-label"></label>
                 <select asp-for="IdEdit" class="form-control" asp-items="ViewBag.IdEdit"></select>
                 <span asp-validation-for="IdEdit" class="text-danger"></span>
-            </div>
+            </div
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

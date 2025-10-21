@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
                 <input asp-for="Titulo" class="form-control" />
@@ -55,6 +55,44 @@
                 <label asp-for="IdTipoR" class="control-label"></label>
                 <select asp-for="IdTipoR" class ="form-control" asp-items="ViewBag.IdTipoR"></select>
             </div>
+            <!-- Campos extra visibles solo si el tipo es "Tesis" -->
+<div id="tesisFields" style="display:none;">
+    <hr />
+    <h5 class="fw-bold">Datos de la Institución (solo para Tesis)</h5>
+
+    <div class="mb-3">
+        <label class="form-label">Correo de contacto</label>
+        <input type="email" name="CorreoContacto" class="form-control" placeholder="ejemplo@universidad.edu" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" name="Telefono" class="form-control" placeholder="2222-2222" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Sitio Web</label>
+        <input type="url" name="SitioWeb" class="form-control" placeholder="https://www.universidad.edu" />
+    </div>
+</div>
+
+<script>
+    // Mostrar u ocultar los campos según el tipo de recurso
+    const tipoSelect = document.getElementById("IdTipoR");
+    const tesisFields = document.getElementById("tesisFields");
+
+    tipoSelect.addEventListener("change", function () {
+        const selectedText = tipoSelect.options[tipoSelect.selectedIndex].text.toLowerCase();
+        tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
+    });
+
+    // Ejecutar al cargar la página
+    window.addEventListener("load", function () {
+        const selectedText = tipoSelect.options[tipoSelect.selectedIndex]?.text.toLowerCase() || "";
+        tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
+    });
+</script>
+
             <div class="form-group">
                 <label asp-for="IdEdit" class="control-label"></label>
                 <select asp-for="IdEdit" class ="form-control" asp-items="ViewBag.IdEdit"></select>
