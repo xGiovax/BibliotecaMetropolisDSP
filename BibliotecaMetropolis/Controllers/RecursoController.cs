@@ -83,14 +83,28 @@ namespace BibliotecaMetropolis.Controllers
                 .Include(r => r.Editorial)
                 .Include(r => r.Pais)
                 .Include(r => r.TipoRecurso)
+                .Include(r => r.AutoresRecursos)
+                    .ThenInclude(ar => ar.Autor)
                 .FirstOrDefaultAsync(m => m.IdRec == id);
+
             if (recurso == null)
             {
                 return NotFound();
             }
 
+            // Si el recurso es tipo tesis, pasamos datos adicionales (si existen)
+            if (recurso.TipoRecurso != null && recurso.TipoRecurso.Nombre.ToLower().Contains("tesis"))
+            {
+                ViewBag.CorreoContacto = recurso.Editorial?.Descripcion ?? "No disponible";
+                ViewBag.Telefono = recurso.Editorial?.Nombre?.Contains("UDB") == true ? "+503 2251-8200" : "No disponible";
+                ViewBag.SitioWeb = recurso.Editorial?.Descripcion?.Contains("http") == true
+                    ? recurso.Editorial.Descripcion
+                    : "No disponible";
+            }
+
             return View(recurso);
         }
+
 
         // GET: Recurso/Create
         public IActionResult Create()
@@ -98,10 +112,22 @@ namespace BibliotecaMetropolis.Controllers
             ViewData["IdEdit"] = new SelectList(_context.Editoriales, "IdEdit", "Nombre");
             ViewData["IdPais"] = new SelectList(_context.Paises, "IdPais", "Nombre");
             ViewData["IdTipoR"] = new SelectList(_context.TiposRecurso, "IdTipoR", "Nombre");
-            // 🔹 Cargar lista de autores disponibles
-            ViewData["Autores"] = new MultiSelectList(_context.Autores, "IdAutor", "Nombres");
+
+            // 🔹 Cargar lista de autores disponibles con nombre completo (Nombre + Apellido)
+            var autores = _context.Autores
+                .Select(a => new
+                {
+                    a.IdAutor,
+                    NombreCompleto = a.Nombres + " " + a.Apellidos
+                })
+                .ToList();
+
+            ViewData["Autores"] = new MultiSelectList(autores, "IdAutor", "NombreCompleto");
+            ViewData["AutorPrincipal"] = new SelectList(autores, "IdAutor", "NombreCompleto");
+
             return View();
         }
+
 
         // POST: Recurso/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
