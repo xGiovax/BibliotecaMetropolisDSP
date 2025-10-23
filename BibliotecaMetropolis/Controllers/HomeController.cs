@@ -2,6 +2,13 @@ using System.Diagnostics;
 using BibliotecaMetropolis.Models;
 using Microsoft.AspNetCore.Mvc;
 
+//INTEGRANTES DE EQUIPO
+//Giovanni Alberto Ruano Martinez RM250065
+//Christopher Steven Jovel Beltran JB251834
+//William Aaron Peralta Cruz PC210574
+//Emerson Amilcar Molina Sandoval MS250062
+//Manuel Aaron Aleman Cruz AC250515
+
 namespace BibliotecaMetropolis.Controllers
 {
     public class HomeController : Controller

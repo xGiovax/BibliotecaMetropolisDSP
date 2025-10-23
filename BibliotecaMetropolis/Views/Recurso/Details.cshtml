@@ -1,78 +1,168 @@
 ﻿@model BibliotecaMetropolis.Models.Recurso
-
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Recurso";
+    
 }
 
-<h1>Details</h1>
+<div class="container my-5 text-glow-light">
+    <h1 class="fw-bold text-glow-primary mb-3">
+        <i class="bi bi-info-circle me-2"></i> Detalles del Recurso
+    </h1>
 
-<div>
-    <h4>Recurso</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnnoPublic)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnnoPublic)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Edicion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Edicion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PalabrasBusqueda)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PalabrasBusqueda)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CantidadUnidades)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CantidadUnidades)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioIndividual)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecioIndividual)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pais)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pais.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoRecurso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoRecurso.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Editorial)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Editorial.Nombre)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdRec">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h4 class="text-glow-success">
+        Catálogo ID: @Model.IdRec
+    </h4>
+    <hr class="glow-hr mb-4" />
+
+    <div class="card card-futuristic p-4">
+
+        <h5 class="fw-bold text-glow-warning mb-4">Información General</h5>
+
+        <dl class="row detail-list-futuristic">
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd class="col-sm-9  text-white">
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd class="col-sm-9 text-white description-box">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.PalabrasBusqueda)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.PalabrasBusqueda)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.AnnoPublic)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.AnnoPublic)
+            </dd>
+
+            <dt class="col-sm-3 text-white  text-glow-light">
+                @Html.DisplayNameFor(model => model.Edicion)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.Edicion)
+            </dd>
+
+        </dl>
+
+        <hr class="glow-hr my-4" />
+
+        <h5 class="fw-bold text-glow-warning mb-4">Clasificación y Existencias</h5>
+
+        <dl class="row detail-list-futuristic">
+
+            <dt class="col-sm-3 text-white  text-glow-light">
+                @Html.DisplayNameFor(model => model.TipoRecurso)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.TipoRecurso.Nombre)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.Pais)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.Pais.Nombre)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.Editorial)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.Editorial.Nombre)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.CantidadUnidades)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                @Html.DisplayFor(model => model.CantidadUnidades)
+            </dd>
+
+            <dt class="col-sm-3 text-white text-glow-light">
+                @Html.DisplayNameFor(model => model.PrecioIndividual)
+            </dt>
+            <dd class="col-sm-9 text-white">
+                $@Html.DisplayFor(model => model.PrecioIndividual)
+            </dd>
+        </dl>
+
+        @if (Model.TipoRecurso != null && Model.TipoRecurso.Nombre.ToLower().Contains("tesis"))
+        {
+            <hr class="glow-hr my-4" />
+            <h5 class="fw-bold text-glow-danger mb-4">Información Institucional (Tesis)</h5>
+
+            <dl class="row detail-list-futuristic card-futuristic-nested p-3">
+                <dt class="col-sm-3 text-glow-light">Correo de Contacto</dt>
+                <dd class="col-sm-9 text-black">@ViewBag.CorreoContacto</dd>
+
+                <dt class="col-sm-3 text-glow-light">Teléfono</dt>
+                <dd class="col-sm-9 text-black">@ViewBag.Telefono</dd>
+
+                <dt class="col-sm-3 text-glow-light">Sitio Web</dt>
+                <dd class="col-sm-9 text-black">@ViewBag.SitioWeb</dd>
+            </dl>
+        }
+
+        <hr class="glow-hr my-4" />
+
+        <h5 class="fw-bold text-glow-primary mb-4">Autores</h5>
+
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                @if (Model.AutoresRecursos != null && Model.AutoresRecursos.Any())
+                {
+                    <ul class="list-unstyled list-futuristic text-white  card-futuristic-nested p-3">
+                        @foreach (var ar in Model.AutoresRecursos.OrderByDescending(a => a.EsPrincipal))
+                        {
+                            if (ar.Autor != null)
+                            {
+                                if (ar.EsPrincipal)
+                                {
+                                    <li class="text-glow-warning text-white  fw-bold">
+                                        <i class="bi bi-star-fill me-2 text-warning"></i>
+                                        @($"{ar.Autor.Nombres} {ar.Autor.Apellidos}") <small class="text-warning">(Principal)</small>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="text-white">
+                                        <i class="bi bi-person-fill me-2"></i>
+                                        @($"{ar.Autor.Nombres} {ar.Autor.Apellidos}")
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted text-white small">Sin autores registrados para este recurso.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center d-flex justify-content-center gap-3">
+        <a asp-action="Edit" asp-route-id="@Model?.IdRec" class="btn btn-warning btn-futuristic-warning">
+            <i class="bi bi-pencil me-1"></i> Editar
+        </a>
+        <a asp-action="Index" class="btn btn-secondary btn-futuristic-secondary">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver a la Lista
+        </a>
+    </div>
+
 </div>

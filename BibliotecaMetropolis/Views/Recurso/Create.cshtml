@@ -1,142 +1,217 @@
 ﻿@model BibliotecaMetropolis.Models.Recurso
-
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Recurso";
+   
 }
 
-<h1>Create</h1>
+<div class="container my-5 text-glow-light">
+    <h1 class="fw-bold text-glow-primary">
+        <i class="bi bi-file-earmark-plus me-2"></i> Crear Nuevo Recurso
+    </h1>
 
-<h4>Recurso</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnnoPublic" class="control-label"></label>
-                <input asp-for="AnnoPublic" class="form-control" />
-                <span asp-validation-for="AnnoPublic" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Edicion" class="control-label"></label>
-                <input asp-for="Edicion" class="form-control" />
-                <span asp-validation-for="Edicion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PalabrasBusqueda" class="control-label"></label>
-                <input asp-for="PalabrasBusqueda" class="form-control" />
-                <span asp-validation-for="PalabrasBusqueda" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CantidadUnidades" class="control-label"></label>
-                <input asp-for="CantidadUnidades" class="form-control" />
-                <span asp-validation-for="CantidadUnidades" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioIndividual" class="control-label"></label>
-                <input asp-for="PrecioIndividual" class="form-control" />
-                <span asp-validation-for="PrecioIndividual" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdPais" class="control-label"></label>
-                <select asp-for="IdPais" class ="form-control" asp-items="ViewBag.IdPais"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdTipoR" class="control-label"></label>
-                <select asp-for="IdTipoR" class ="form-control" asp-items="ViewBag.IdTipoR"></select>
-            </div>
-            <!-- Campos extra visibles solo si el tipo es "Tesis" -->
-<div id="tesisFields" style="display:none;">
-    <hr />
-    <h5 class="fw-bold">Datos de la Institución (solo para Tesis)</h5>
+    <h4 class="text-glow-success">
+        Gestión de Catálogo
+    </h4>
+    <hr class="glow-hr mb-4" />
 
-    <div class="mb-3">
-        <label class="form-label">Correo de contacto</label>
-        <input type="email" name="CorreoContacto" class="form-control" placeholder="ejemplo@universidad.edu" />
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card card-futuristic p-4 card-zoom-sm">
+
+                <form asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <h5 class="fw-bold text-glow-primary mb-3">Datos Generales</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="Titulo" class="control-label text-white fw-bold"></label>
+                                <input asp-for="Titulo" class="form-control form-control-futuristic" />
+                                <span asp-validation-for="Titulo" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group mb-3">
+                                <label asp-for="AnnoPublic" class="control-label text-white fw-bold"></label>
+                                <input asp-for="AnnoPublic" class="form-control form-control-futuristic" />
+                                <span asp-validation-for="AnnoPublic" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group mb-3">
+                                <label asp-for="Edicion" class="control-label text-white fw-bold"></label>
+                                <input asp-for="Edicion" class="form-control form-control-futuristic" />
+                                <span asp-validation-for="Edicion" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Descripcion" class="control-label text-white fw-bold"></label>
+                        <textarea asp-for="Descripcion" class="form-control form-control-futuristic" rows="3"></textarea>
+                        <span asp-validation-for="Descripcion" class="text-glow-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="PalabrasBusqueda" class="control-label text-white fw-bold"></label>
+                                <input asp-for="PalabrasBusqueda" class="form-control form-control-futuristic" />
+                                <span asp-validation-for="PalabrasBusqueda" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group mb-3">
+                                <label asp-for="CantidadUnidades" class="control-label text-white fw-bold"></label>
+                                <input asp-for="CantidadUnidades" class="form-control form-control-futuristic" />
+                                <span asp-validation-for="CantidadUnidades" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group mb-3">
+                                <label asp-for="PrecioIndividual" class="control-label text-white fw-bold"></label>
+                                <input asp-for="PrecioIndividual" class="form-control form-control-futuristic" />
+                                <span asp-validation-for="PrecioIndividual" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="glow-hr my-4" />
+
+                    <h5 class="fw-bold text-glow-primary mb-3">Clasificación</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="IdPais" class="control-label text-white fw-bold"></label>
+                                <select asp-for="IdPais" class="form-control form-control-futuristic" asp-items="ViewBag.IdPais"></select>
+                                <span asp-validation-for="IdPais" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="IdTipoR" class="control-label text-white fw-bold"></label>
+                                <select asp-for="IdTipoR" id="IdTipoR" class="form-control form-control-futuristic" asp-items="ViewBag.IdTipoR"></select>
+                                <span asp-validation-for="IdTipoR" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="IdEdit" class="control-label text-white fw-bold"></label>
+                                <select asp-for="IdEdit" class="form-control form-control-futuristic" asp-items="ViewBag.IdEdit"></select>
+                                <span asp-validation-for="IdEdit" class="text-glow-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="glow-hr my-4" />
+
+                    <div id="tesisFields" style="display:none;" class="card card-futuristic-nested p-3 mb-4">
+                        <h5 class="fw-bold text-glow-warning mb-3">Datos de la Institución (Tesis)</h5>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label text-white">Correo de contacto</label>
+                                    <input type="email" name="CorreoContacto" class="form-control form-control-futuristic" placeholder="ejemplo@universidad.edu" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label text-white">Teléfono</label>
+                                    <input type="text" name="Telefono" class="form-control form-control-futuristic" placeholder="2222-2222" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label text-white">Sitio Web</label>
+                                    <input type="url" name="SitioWeb" class="form-control form-control-futuristic" placeholder="https://www.universidad.edu" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold text-glow-primary mb-3">Autores del Recurso</h5>
+                    <p class="text-muted text-glow-light small">Selecciona uno o varios autores. Debes designar un autor principal.</p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3 card card-futuristic-nested p-3">
+
+                                <label class="form-label text-black fw-bold mb-3">Selección de Autores</label>
+
+                                @foreach (var autor in ViewData["Autores"] as MultiSelectList)
+                                {
+                                    <div class="form-check form-check-futuristic mb-2">
+                                        <input class="form-check-input text-black" type="checkbox"
+                                               name="autoresSeleccionados"
+                                               value="@autor.Value"
+                                               id="autor_@autor.Value">
+                                        <label class="form-check-label text-black fw-bold" for="autor_@autor.Value">
+                                            @autor.Text
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-white fw-bold">Autor principal</label>
+                                @{
+                                    // Prepara la lista de autores para el DropDownList
+                                    var autoresList = ((MultiSelectList)ViewData["Autores"]).Select(a => new SelectListItem
+                                    {
+                                        Value = a.Value,
+                                        Text = a.Text
+                                    });
+                                }
+                                @Html.DropDownList(
+                                "autorPrincipal",
+                                                                new SelectList(autoresList, "Value", "Text"),
+                                                                "Seleccione un autor principal",
+                                                                new { @class = "form-select form-control-futuristic" }
+                                                                )
+                            </div>
+                        </div>
+                    </div>
+
+                    <div asp-validation-summary="All" class="text-danger mt-3"></div>
+
+                    <div class="form-group d-grid gap-2 mt-4">
+                        <input type="submit" value="Crear Recurso" class="btn btn-primary btn-futuristic" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Teléfono</label>
-        <input type="text" name="Telefono" class="form-control" placeholder="2222-2222" />
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="text-decoration-none text-glow-warning">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver a la Lista de Recursos
+        </a>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Sitio Web</label>
-        <input type="url" name="SitioWeb" class="form-control" placeholder="https://www.universidad.edu" />
-    </div>
-</div>
-
-<script>
-    // Mostrar u ocultar los campos según el tipo de recurso
-    const tipoSelect = document.getElementById("IdTipoR");
-    const tesisFields = document.getElementById("tesisFields");
-
-    tipoSelect.addEventListener("change", function () {
-        const selectedText = tipoSelect.options[tipoSelect.selectedIndex].text.toLowerCase();
-        tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
-    });
-
-    // Ejecutar al cargar la página
-    window.addEventListener("load", function () {
-        const selectedText = tipoSelect.options[tipoSelect.selectedIndex]?.text.toLowerCase() || "";
-        tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
-    });
-</script>
-
-            <div class="form-group">
-                <label asp-for="IdEdit" class="control-label"></label>
-                <select asp-for="IdEdit" class ="form-control" asp-items="ViewBag.IdEdit"></select>
-            </div>
-
-            <div class="form-group mt-3">
-    <label class="fw-bold">Autores</label>
-                @Html.ListBox(
-                            "autoresSeleccionados",
-                            (MultiSelectList)ViewData["Autores"],
-                            new { @class = "form-select", multiple = "multiple", size = "5" }
-                        )
-    <small class="text-muted d-block">Mantén presionado Ctrl (o Cmd) para seleccionar varios autores.</small>
-</div>
-
-<div class="form-group mt-3">
-    <label class="fw-bold">Autor Principal</label>
-                @{
-                    var autoresList = ((MultiSelectList)ViewData["Autores"]).Select(a => new SelectListItem
-            {
-                Value = a.Value,
-                Text = a.Text
-            });
-                }
-                @Html.DropDownList(
-                            "autorPrincipal",
-                            new SelectList(autoresList, "Value", "Text"),
-                            "Seleccione un autor principal",
-                            new { @class = "form-select" }
-                        )
-</div>
-
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Lógica de Mostrar u ocultar los campos de tesis
+        const tipoSelect = document.getElementById("IdTipoR");
+        const tesisFields = document.getElementById("tesisFields");
+
+        const toggleTesisFields = () => {
+           const selectedText = tipoSelect.options[tipoSelect.selectedIndex]?.text.toLowerCase() || "";
+           tesisFields.style.display = selectedText.includes("tesis") ? "block" : "none";
+        };
+
+        tipoSelect.addEventListener("change", toggleTesisFields);
+
+        // Mostrar automáticamente al cargar
+        window.addEventListener("load", toggleTesisFields);
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

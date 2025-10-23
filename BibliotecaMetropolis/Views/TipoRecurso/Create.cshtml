@@ -1,38 +1,62 @@
 ﻿@model BibliotecaMetropolis.Models.TipoRecurso
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Registrar Tipo de Recurso";
+    
 }
 
-<h1>Create</h1>
+<div class="container my-5 text-glow-light">
+    <h1 class="fw-bold text-glow-primary">
+        <i class="bi bi-tags me-2"></i> Registrar Nuevo Tipo de Recurso
+    </h1>
 
-<h4>TipoRecurso</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+    <h4 class="text-glow-success">
+        Definición del Catálogo
+    </h4>
+    <hr class="glow-hr mb-4" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card card-futuristic p-4 card-zoom-sm">
+
+                <form asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <h5 class="fw-bold text-glow-warning mb-3">Ingresar Datos del Tipo</h5>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Nombre" class="control-label text-white fw-bold"></label>
+                        <input asp-for="Nombre" class="form-control form-control-futuristic" placeholder="Ej: Libro, Artículo, Tesis" />
+                        <span asp-validation-for="Nombre" class="text-glow-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Descripcion" class="control-label text-white fw-bold"></label>
+                        {{-- Usamos un textarea para descripciones largas --}}
+                        <textarea asp-for="Descripcion" class="form-control form-control-futuristic" rows="3" placeholder="Descripción breve del tipo de material."></textarea>
+                        <span asp-validation-for="Descripcion" class="text-glow-danger small"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-4">
+                        <input type="submit" value="Crear Tipo" class="btn btn-primary btn-futuristic" />
+                    </div>
+                </form>
+
             </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="text-decoration-none text-glow-warning">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver a la Lista de Tipos
+        </a>
+    </div>
+
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

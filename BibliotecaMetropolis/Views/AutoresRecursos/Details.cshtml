@@ -1,36 +1,78 @@
 ﻿@model BibliotecaMetropolis.Models.AutoresRecursos
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de la Relación";
+    
 }
 
-<h1>Details</h1>
+<div class="container my-5 text-glow-light">
 
-<div>
-    <h4>AutoresRecursos</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Recurso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Recurso.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Autor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Autor.Apellidos)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EsPrincipal)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EsPrincipal)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <h1 class="fw-bold text-glow-primary">
+        <i class="bi bi-info-circle me-2"></i> Detalles de Contribución
+    </h1>
+
+    <h4 class="text-glow-success">
+        Información de la Autoría
+    </h4>
+    <hr class="glow-hr mb-4" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-futuristic p-4 card-zoom-sm">
+
+                <h5 class="fw-bold text-glow-warning mb-4">
+                    Relación: @(Model.Recurso?.Titulo ?? "N/A") y @(Model.Autor != null ? $"{Model.Autor.Nombres} {Model.Autor.Apellidos}" : "N/A")
+                </h5>
+
+                <dl class="row detail-list-futuristic">
+
+                    <dt class="col-sm-3 text-white  text-glow-light">
+                        @Html.DisplayNameFor(model => model.Recurso)
+                    </dt>
+                    <dd class="col-sm-9 text-white fw-bold">
+                        @Html.DisplayFor(model => model.Recurso.Titulo)
+                    </dd>
+
+                    <dt class="col-sm-3 text-glow-light">
+                        @Html.DisplayNameFor(model => model.Autor)
+                    </dt>
+                    <dd class="col-sm-9 text-white">
+                        @(Model.Autor != null ? $"{Model.Autor.Nombres} {Model.Autor.Apellidos}" : "N/A")
+                    </dd>
+
+                    <dt class="col-sm-3  text-white  text-glow-light">
+                        @Html.DisplayNameFor(model => model.EsPrincipal)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @if (Model.EsPrincipal)
+                        {
+                            <span class="badge text-bg-warning-futuristic fw-bold"><i class="bi bi-star-fill me-1"></i> Autor Principal</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-secondary-futuristic"><i class="bi bi-person-fill me-1"></i> Contribuyente</span>
+                        }
+                    </dd>
+
+                </dl>
+
+            </div>
+        </div>
+    </div>
+
+    @* Asumiendo clave compuesta (IdRec e IdAutor) para Editar *@
+    @{
+        var primaryKey = new { idRec = Model.IdRec, idAutor = Model.IdAutor };
+    }
+
+    <div class="mt-5 text-center d-flex justify-content-center gap-3">
+        <a asp-action="Edit" asp-route-idRec="@primaryKey.idRec" asp-route-idAutor="@primaryKey.idAutor"
+           class="btn btn-warning btn-futuristic-warning px-4">
+            <i class="bi bi-pencil me-1"></i> Editar Relación
+        </a>
+        <a asp-action="Index" class="btn btn-secondary btn-futuristic-secondary px-4">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver a la Lista
+        </a>
+    </div>
+
 </div>

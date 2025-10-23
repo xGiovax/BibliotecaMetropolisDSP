@@ -1,41 +1,91 @@
 ﻿@model IEnumerable<BibliotecaMetropolis.Models.Autor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gestión de Autores";
+  
 }
 
-<h1>Index</h1>
+<div class="container my-5 text-glow-light">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellidos)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellidos)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdAutor">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdAutor">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdAutor">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <h1 class="fw-bold text-glow-primary mb-3">
+        <i class="bi bi-people-fill me-2"></i> Gestión de Autores
+    </h1>
+
+    <h4 class="text-glow-success">
+        Catálogo de Creadores
+    </h4>
+    <hr class="glow-hr mb-4" />
+
+
+    
+    <p class="mb-4">
+        <a asp-action="Create" class="btn btn-futuristic btn-glow-success mb-4 text-white">
+            <i class="bi bi-plus-circle me-1 text-white"></i> Crear Nuevo Autor
+        </a>
+    </p>
+
+    <div class="card card-futuristic p-4 table-responsive card-zoom-sm">
+
+        <table class="table table-futuristic table-hover table-dark-blue">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Apellidos)
+                    </th>
+                    <th class="text-center">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-white fw-bold">
+                            @Html.DisplayFor(modelItem => item.Nombres)
+                        </td>
+                        <td class="text-white">
+                            @Html.DisplayFor(modelItem => item.Apellidos)
+                        </td>
+
+                        <td class="text-center actions-column">
+                            <div class="btn-group btn-group-sm" role="group">
+
+                                <a asp-action="Edit" asp-route-id="@item.IdAutor"
+                                   class="btn btn-sm btn-outline-warning btn-icon-neoned"
+                                   title="Editar Recurso">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a asp-action="Details" asp-route-id="@item.IdAutor"
+                                   class="btn btn-sm btn-outline-info btn-icon-neoned"
+                                   title="Ver Detalles">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@item.IdAutor"
+                                   class="btn btn-sm btn-outline-danger btn-icon-neoned"
+                                   title="Eliminar Recurso">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-exclamation-octagon fs-3 text-glow-warning"></i>
+                <p class="mt-3">Aún no hay autores registrados en la base de datos.</p>
+            </div>
+        }
+
+    </div>
+</div>

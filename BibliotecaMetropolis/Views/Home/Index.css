@@ -1,10 +1,10 @@
-Ôªø:root {
-    /* Paleta de colores de ne√≥n */
+:root {
+    /* Paleta de colores de neÛn */
     --glow-primary: #00f2ff;
     --glow-success: #00ff8a;
     --glow-warning: #ffeb3b;
     --glow-danger: #ff2d6d;
-    --dark-bg: #011116; /* Fondo p√∫rpura oscuro */
+    --dark-bg: #0a0518; /* Fondo p˙rpura oscuro */
 }
 
 body {
@@ -12,7 +12,7 @@ body {
     color: #dcdcf0; /* Color de texto base claro */
 }
 
-/* --- Secci√≥n de bienvenida --- */
+/* --- SecciÛn de bienvenida --- */
 
 .text-glow-primary {
     color: var(--glow-primary);
@@ -20,7 +20,7 @@ body {
 }
 
 .lead {
-    color: #a0a0c0; /* Un color m√°s suave para el subt√≠tulo */
+    color: #a0a0c0; /* Un color m·s suave para el subtÌtulo */
 }
 
 hr.glow-hr {
@@ -38,10 +38,10 @@ hr.glow-hr {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Para Safari */
     border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
-    border-radius: 1rem; /* Esquinas m√°s redondeadas */
+    border-radius: 1rem; /* Esquinas m·s redondeadas */
     /* Sombra para dar profundidad */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    /* Transici√≥n para el hover */
+    /* TransiciÛn para el hover */
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -51,9 +51,9 @@ hr.glow-hr {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* --- Iconos y Botones de Ne√≥n --- */
+/* --- Iconos y Botones de NeÛn --- */
 
-/* Clases de brillo para √≠conos */
+/* Clases de brillo para Ìconos */
 .icon-glow-primary {
     color: var(--glow-primary);
     text-shadow: 0 0 15px var(--glow-primary);
@@ -75,11 +75,11 @@ hr.glow-hr {
 }
 
 .card-futuristic h5 {
-    color: #ffffff; /* T√≠tulos de tarjeta en blanco puro */
+    color: #ffffff; /* TÌtulos de tarjeta en blanco puro */
 }
 
 .card-futuristic .text-muted {
-    color: #a0a0c0 !important; /* Descripci√≥n m√°s clara */
+    color: #a0a0c0 !important; /* DescripciÛn m·s clara */
 }
 
 /* Redefinir los botones outline */

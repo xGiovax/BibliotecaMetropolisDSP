@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BibliotecaMetropolis.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251020162743_AjusteRelacionesYTablas")]
-    partial class AjusteRelacionesYTablas
+    [Migration("20251022224939_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,7 +73,12 @@ namespace BibliotecaMetropolis.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEdit"));
 
+                    b.Property<string>("CorreoContacto")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
@@ -81,6 +86,14 @@ namespace BibliotecaMetropolis.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SitioWeb")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Telefono")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("IdEdit");
 

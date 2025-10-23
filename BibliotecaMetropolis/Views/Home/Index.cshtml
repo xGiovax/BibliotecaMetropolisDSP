@@ -1,77 +1,105 @@
-﻿@{
-    ViewData["Title"] = "Inicio - Biblioteca Metrópolis";
-}
+﻿
 
-<div class="container my-5">
 
-    <!-- Sección de bienvenida -->
-    <div class="text-center mb-5">
-        <h1 class="fw-bold text-primary mb-3">
-            <i class="bi bi-mortarboard-fill me-2"></i> Biblioteca Metrópolis
-        </h1>
-        <p class="text-muted lead">
-            Sistema de gestión académica para el registro, organización y consulta de recursos bibliográficos.
-        </p>
-        <hr class="w-25 mx-auto mt-4 mb-5" />
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Metrópolis</title>
+
+
+
+</head>
+
+
+<body class="dark-theme">
+
+    <div class="container my-5">
+
+        <div class="text-center mb-5">
+            <h1 class="fw-bold text-glow-primary mb-3">
+                <i class="bi bi-mortarboard-fill me-2"></i> Biblioteca Metrópolis
+            </h1>
+            <p class="lead">
+                Sistema de gestión académica para el registro, organización y consulta de recursos bibliográficos.
+            </p>
+            <hr class="w-25 mx-auto mt-4 mb-5 glow-hr" />
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card card-zoom card-futuristic text-center p-4 h-100">
+                    <i class="bi bi-journal-bookmark fs-1 mb-3 icon-glow-primary mx-auto"></i>
+
+                    <h5 class="fw-bold">Recursos</h5>
+                    <p class="text-muted small">
+                        Consulta y administra libros, revistas, tesis y materiales educativos.
+                    </p>
+
+                    <a asp-controller="Recurso" asp-action="Index" class="btn btn-outline-primary btn-sm mt-2">Entrar</a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card card-zoom card-futuristic text-center p-4 h-100">
+                    <i class="bi bi-person-lines-fill fs-1 mb-3 icon-glow-success mx-auto"></i>
+
+                    <h5 class="fw-bold">Autores</h5>
+                    <p class="text-muted small">
+                        Administra los autores de los materiales registrados en la biblioteca.
+                    </p>
+                    <a asp-controller="Autor" asp-action="Index" class="btn btn-outline-success btn-sm mt-2">Entrar</a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card card-zoom card-futuristic text-center p-4 h-100">
+                    <i class="bi bi-building fs-1 mb-3 icon-glow-warning mx-auto"></i>
+
+                    <h5 class="fw-bold">Editoriales</h5>
+                    <p class="text-muted small">
+                        Consulta y edita las editoriales o instituciones de las tesis.
+                    </p>
+                    <a asp-controller="Editorial" asp-action="Index" class="btn btn-outline-warning btn-sm mt-2">Entrar</a>
+                </div>
+            </div>
+
+
+           
+
+            <div class="col-md-3">
+                <div class="card card-zoom card-futuristic text-center p-4 h-100">
+                    <i class="bi bi-globe-americas fs-1 mb-3 icon-glow-danger mx-auto"></i>
+
+                    <h5 class="fw-bold">Países</h5>
+                    <p class="text-muted small">
+                        Visualiza los países de origen de las publicaciones registradas.
+                    </p>
+                    <a asp-controller="Pais" asp-action="Index" class="btn btn-outline-danger btn-sm mt-2">Entrar</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+
+        <br />
+        <br />
+          <br />
+            <br />
+        <br />
+         <br />
+        <br />
+          <br />
+            <br />
+        <br />
+       
+        
     </div>
 
-    <!-- Tarjetas de navegación -->
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card card-zoom border-0 shadow-sm text-center p-4 h-100">
-                <div class="icon-circle bg-primary text-white mx-auto mb-3">
-                    <i class="bi bi-journal-bookmark fs-3"></i>
-                </div>
-                <h5 class="fw-bold">Recursos</h5>
-                <p class="text-muted small">
-                    Consulta y administra libros, revistas, tesis y materiales educativos.
-                </p>
-                <a asp-controller="Recurso" asp-action="Index" 
-                   class="btn btn-outline-primary btn-sm mt-2">Entrar</a>
-            </div>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        <div class="col-md-3">
-            <div class="card card-zoom border-0 shadow-sm text-center p-4 h-100">
-                <div class="icon-circle bg-success text-white mx-auto mb-3">
-                    <i class="bi bi-person-lines-fill fs-3"></i>
-                </div>
-                <h5 class="fw-bold">Autores</h5>
-                <p class="text-muted small">
-                    Administra los autores de los materiales registrados en la biblioteca.
-                </p>
-                <a asp-controller="Autor" asp-action="Index" 
-                   class="btn btn-outline-success btn-sm mt-2">Entrar</a>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card card-zoom border-0 shadow-sm text-center p-4 h-100">
-                <div class="icon-circle bg-warning text-white mx-auto mb-3">
-                    <i class="bi bi-building fs-3"></i>
-                </div>
-                <h5 class="fw-bold">Editoriales</h5>
-                <p class="text-muted small">
-                    Consulta y edita las editoriales o instituciones de las tesis.
-                </p>
-                <a asp-controller="Editorial" asp-action="Index" 
-                   class="btn btn-outline-warning btn-sm mt-2">Entrar</a>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card card-zoom border-0 shadow-sm text-center p-4 h-100">
-                <div class="icon-circle bg-danger text-white mx-auto mb-3">
-                    <i class="bi bi-globe-americas fs-3"></i>
-                </div>
-                <h5 class="fw-bold">Países</h5>
-                <p class="text-muted small">
-                    Visualiza los países de origen de las publicaciones registradas.
-                </p>
-                <a asp-controller="Pais" asp-action="Index" 
-                   class="btn btn-outline-danger btn-sm mt-2">Entrar</a>
-            </div>
-        </div>
-    </div>
-
-</div>
+</body>

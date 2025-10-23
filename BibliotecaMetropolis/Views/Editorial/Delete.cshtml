@@ -1,33 +1,64 @@
 ﻿@model BibliotecaMetropolis.Models.Editorial
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Editorial";
+    
 }
 
-<h1>Delete</h1>
+<div class="container my-5 text-glow-light">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Editorial</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdEdit" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <h1 class="fw-bold text-glow-danger mb-3">
+        <i class="bi bi-trash-fill me-2"></i> Eliminar Editorial
+    </h1>
+
+    <h3 class="text-glow-warning mb-4">
+        ¿Está seguro que desea eliminar esta editorial permanentemente?
+    </h3>
+    <hr class="glow-hr mb-4" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-futuristic p-4 card-zoom-sm">
+
+                <div class="alert alert-danger-futuristic mb-4 p-3 text-center border-danger">
+                    <h5 class="fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i> ¡ADVERTENCIA! Esta acción es irreversible.</h5>
+                    <p class="mb-0 small text-danger">Eliminar a **@Model.Nombre** podría afectar recursos asociados.</p>
+                </div>
+
+                <h5 class="fw-bold text-glow-primary mb-4">Datos de la Editorial a Eliminar</h5>
+
+                <dl class="row detail-list-futuristic mb-4">
+
+                    <dt class="col-sm-3 text-white  text-glow-light">
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </dt>
+                    <dd class="col-sm-9 text-white fw-bold">
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
+
+                    <dt class="col-sm-3  text-white text-glow-light">
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </dt>
+                    <dd class="col-sm-9 text-white small">
+                        @Html.DisplayFor(model => model.Descripcion)
+                    </dd>
+
+                </dl>
+
+                <hr class="glow-hr my-4" />
+
+                <form asp-action="Delete" class="d-flex justify-content-center gap-3">
+                    <input type="hidden" asp-for="IdEdit" />
+
+                    <button type="submit" value="Delete" class="btn btn-danger btn-futuristic-danger px-4">
+                        <i class="bi bi-trash-fill me-2"></i> Confirmar Eliminación
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-secondary btn-futuristic-secondary px-4">
+                        <i class="bi bi-x-circle me-2"></i> Cancelar y Volver
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

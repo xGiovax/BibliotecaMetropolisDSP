@@ -1,24 +1,51 @@
 ﻿@model BibliotecaMetropolis.Models.Pais
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del País";
+   
 }
 
-<h1>Details</h1>
+<div class="container my-5 text-glow-light">
 
-<div>
-    <h4>Pais</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdPais">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h1 class="fw-bold text-glow-primary">
+        <i class="bi bi-info-circle me-2"></i> Detalles del País
+    </h1>
+
+    <h4 class="text-glow-success">
+        Información Geográfica
+    </h4>
+    <hr class="glow-hr mb-4" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-futuristic p-4 card-zoom-sm">
+
+                <h5 class="fw-bold text-glow-warning mb-4">
+                    Registro ID: @Model.IdPais
+                </h5>
+
+                <dl class="row detail-list-futuristic">
+
+                    <dt class="col-sm-3 text-white text-glow-light">
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </dt>
+                    <dd class="col-sm-9 text-white fw-bold fs-5">
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
+
+                </dl>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center d-flex justify-content-center gap-3">
+        <a asp-action="Edit" asp-route-id="@Model?.IdPais" class="btn btn-warning btn-futuristic-warning px-4">
+            <i class="bi bi-pencil me-1"></i> Editar País
+        </a>
+        <a asp-action="Index" class="btn btn-secondary btn-futuristic-secondary px-4">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver a la Lista
+        </a>
+    </div>
+
 </div>
